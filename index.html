@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch Vụ Tăng View YouTube</title>
+    <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #e0ecff, #f5f8ff);
+        color: #333;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 40px;
+        transition: all 0.3s ease;
+        border: 1px solid #e3e9f5;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #0d47a1;
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .input-group {
+        margin-bottom: 25px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        color: #333;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #dce3f0;
+        border-radius: 10px;
+        font-size: 15px;
+        background: #fdfdfd;
+        transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+        border-color: #1a73e8;
+        box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.15);
+        outline: none;
+    }
+
+    .payment-info {
+        background: #f2f6ff;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #dce3f0;
+        margin: 25px 0;
+    }
+
+    .payment-info p {
+        margin: 10px 0;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .payment-info strong {
+        color: #1a73e8;
+        font-weight: 600;
+    }
+
+    button {
+        background: linear-gradient(to right, #1a73e8, #0d47a1);
+        color: white;
+        padding: 16px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+    }
+
+    button:hover {
+        background: linear-gradient(to right, #0d47a1, #1a73e8);
+        box-shadow: 0 6px 16px rgba(26, 115, 232, 0.3);
+        transform: translateY(-2px);
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+    #qrCode {
+        display: none;
+        text-align: center;
+        margin-top: 30px;
+        padding: 25px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    #qrCode h3 {
+        color: #1a73e8;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    #qrCode img {
+        max-width: 250px;
+        margin: 20px auto;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .status-check {
+        background: linear-gradient(135deg, #ffffff, #f1f3f6);
+    }
+
+    .status-check .input-group {
+        display: flex;
+        gap: 12px;
+    }
+
+    .status-check input {
+        flex: 1;
+    }
+
+    .status-check button {
+        width: auto;
+        min-width: 130px;
+    }
+
+    .success-message, .error-message {
+        padding: 16px;
+        border-radius: 10px;
+        margin-top: 20px;
+        font-size: 15px;
+        text-align: center;
+        display: none;
+    }
+
+    .success-message {
+        background: #e6f9ed;
+        color: #28a745;
+        border: 1px solid #b2e2c6;
+    }
+
+    .error-message {
+        background: #fdeaea;
+        color: #e74c3c;
+        border: 1px solid #f5c6cb;
+    }
+
+    .loading {
+        display: none;
+        margin: 20px auto;
+        width: 24px;
+        height: 24px;
+        border: 3px solid #e3e3e3;
+        border-top: 3px solid #1a73e8;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    .order-history {
+        overflow-x: auto;
+    }
+
+    #orderTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+    }
+
+    #orderTable th, #orderTable td {
+        padding: 14px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    #orderTable th {
+        background-color: #f4f6fb;
+        color: #0d47a1;
+        font-weight: 700;
+    }
+
+    #orderTable tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    #orderTable td {
+        font-size: 14px;
+    }
+
+    .status-pending {
+        color: #f39c12;
+        font-weight: 600;
+    }
+
+    .status-paid {
+        color: #27ae60;
+        font-weight: 600;
+    }
+
+    .status-processing {
+        color: #2980b9;
+        font-weight: 600;
+    }
+
+    .status-completed {
+        color: #2ecc71;
+        font-weight: 600;
+    }
+
+    .status-cancelled {
+        color: #c0392b;
+        font-weight: 600;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        .card {
+            padding: 25px;
+        }
+
+        .status-check .input-group {
+            flex-direction: column;
+        }
+
+        .status-check button {
+            width: 100%;
+        }
+
+        #orderTable {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Dịch Vụ Tăng View YouTube</h2>
+            <form id="orderForm">
+                <div class="input-group">
+                    <label>Link Video:</label>
+                    <input type="text" name="videoLink" id="videoLink" required 
+                           placeholder="Nhập link video YouTube">
+                </div>
+                
+                <div class="input-group">
+                    <label>Chọn Gói:</label>
+                    <select name="viewPackage" id="viewPackage">
+                        <option value="50">50 view (10 phút/view)</option>
+                        <option value="100">100 view (10 phút/view)</option>
+                        <option value="200">200 view (10 phút/view)</option>
+                        <option value="500">500 view (10 phút/view)</option>
+                        <option value="1000">1000 view (10 phút/view)</option>
+                        <option value="2500">2500 view (10 phút/view)</option>
+                    </select>
+                </div>
+
+                <div class="payment-info">
+                    <p>Tổng thời gian: <strong><span id="totalTime">0</span> giờ</strong></p>
+                    <p>Tổng tiền: <strong><span id="totalPrice">0</span> VNĐ</strong></p>
+                </div>
+
+                <button type="submit">Đặt Hàng</button>
+            </form>
+
+            <div id="qrCode">
+                <h3>Thông tin thanh toán</h3>
+                <img src="qr.png" alt="QR Code">
+                <div class="payment-info">
+                    <p>Số tiền: <strong><span id="paymentAmount">0</span> VNĐ</strong></p>
+                    <p>Nội dung chuyển khoản: <strong><span id="transferContent"></span></strong></p>
+                    <p><small>Vui lòng chuyển khoản đúng nội dung </small></p>
+                </div>
+            </div>
+
+            <div class="loading" id="loading"></div>
+        </div>
+
+       
+
+        <div class="card order-history">
+            <h2>Lịch Sử Đơn Hàng</h2>
+            <div class="order-list">
+                <table id="orderTable">
+                    <thead>
+                        <tr>
+                            <th>Thời gian</th>
+                            <th>Link Video</th>
+                            <th>Số View</th>
+                            <th>Tổng tiền</th>
+                            <th>Mã đơn</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbylkZbbnZ-Z0JOMVAL4ch05r1zCV7exOIA7P3cHMCrqbB5YFMJnEzWloH7gxe6VbYVI/exec';
+    const PRICE_PER_VIEW = 166;
+    const MINUTES_PER_VIEW = 10;
+    let autoRefreshInterval;
+
+    function calculateTotal() {
+        const views = parseInt(document.getElementById('viewPackage').value);
+        const totalMinutes = views * MINUTES_PER_VIEW;
+        const totalHours = (totalMinutes / 60).toFixed(2);
+        const totalPrice = views * PRICE_PER_VIEW;
+
+        document.getElementById('totalTime').textContent = totalHours;
+        document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
+        document.getElementById('paymentAmount').textContent = totalPrice.toLocaleString();
+    }
+
+    function saveOrder(orderData) {
+        let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        orders.push({
+            timestamp: new Date().toLocaleString(),
+            ...orderData
+        });
+        localStorage.setItem('orders', JSON.stringify(orders));
+        displayOrders();
+    }
+
+    function displayOrders() {
+        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        const tableBody = document.getElementById('orderTableBody');
+        tableBody.innerHTML = '';
+
+        orders.reverse().forEach(order => {
+            const row = document.createElement('tr');
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(-10px)';
+            row.style.transition = 'all 0.3s ease';
+            
+            row.innerHTML = `
+                <td>${order.timestamp}</td>
+                <td>${order.videoLink}</td>
+                <td>${order.views}</td>
+                <td>${parseInt(order.totalPrice).toLocaleString()} VNĐ</td>
+                <td>${order.transferContent}</td>
+                <td class="status-${getStatusClass(order.status || 'Chờ thanh toán')}">${order.status || 'Chờ thanh toán'}</td>
+            `;
+            
+            tableBody.appendChild(row);
+            
+            setTimeout(() => {
+                row.style.opacity = '1';
+                row.style.transform = 'translateY(0)';
+            }, 50);
+        });
+    }
+
+    function getStatusClass(status) {
+        switch(status.toLowerCase()) {
+            case 'chờ thanh toán': return 'pending';
+            case 'đã thanh toán': return 'paid';
+            case 'đang xử lý': return 'processing';
+            case 'hoàn thành': return 'completed';
+            case 'hủy': return 'cancelled';
+            default: return 'pending';
+        }
+    }
+
+    function highlightOrder(orderId) {
+        const tableRows = document.querySelectorAll('#orderTableBody tr');
+        tableRows.forEach(row => {
+            const orderCell = row.querySelector('td:nth-child(5)');
+            if (orderCell && orderCell.textContent === orderId) {
+                row.style.backgroundColor = '#e3f2fd';
+                setTimeout(() => {
+                    row.style.backgroundColor = '';
+                    row.style.transition = 'background-color 1s ease';
+                }, 2000);
+            }
+        });
+    }
+
+    document.getElementById('viewPackage').addEventListener('change', calculateTotal);
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const videoLink = document.getElementById('videoLink').value;
+        const views = document.getElementById('viewPackage').value;
+        const totalPrice = parseInt(views) * PRICE_PER_VIEW;
+
+        document.getElementById('loading').style.display = 'block';
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `${SHEET_URL}?videoLink=${encodeURIComponent(videoLink)}&views=${views}&totalPrice=${totalPrice}`, true);
+
+        xhr.onload = function() {
+            document.getElementById('loading').style.display = 'none';
+            try {
+                const response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    const transferContent = response.orderId; // 👈 lấy từ Google Sheet
+
+                    document.getElementById('transferContent').textContent = transferContent;
+                    document.getElementById('qrCode').style.display = 'block';
+                    
+                    saveOrder({
+                        videoLink: videoLink,
+                        views: views,
+                        totalPrice: totalPrice,
+                        transferContent: transferContent,
+                        status: 'Chờ thanh toán'
+                    });
+
+                    alert('Đơn hàng đã được ghi nhận!');
+                    startAutoRefresh();
+                } else {
+                    alert(response.message || 'Có lỗi xảy ra!');
+                }
+            } catch (err) {
+                alert('Có lỗi khi xử lý phản hồi từ server!');
+            }
+        };
+
+        xhr.onerror = function() {
+            document.getElementById('loading').style.display = 'none';
+            alert('Có lỗi xảy ra, vui lòng thử lại!');
+        };
+
+        xhr.send();
+    });
+
+    function checkOrderStatus() {
+        const orderId = document.getElementById('checkOrderId').value;
+        const statusResult = document.getElementById('statusResult');
+        const errorResult = document.getElementById('errorResult');
+
+        if (!orderId) {
+            errorResult.style.display = 'block';
+            errorResult.textContent = 'Vui lòng nhập mã đơn hàng!';
+            statusResult.style.display = 'none';
+            return;
+        }
+
+        document.getElementById('loading').style.display = 'block';
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `${SHEET_URL}?action=checkStatus&orderId=${orderId}&t=${new Date().getTime()}`, true);
+
+        xhr.onload = function() {
+            try {
+                const response = JSON.parse(xhr.responseText);
+                updateOrderStatus(response, orderId);
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                errorResult.style.display = 'block';
+                errorResult.textContent = 'Có lỗi khi kiểm tra trạng thái!';
+                statusResult.style.display = 'none';
+            }
+        };
+
+        xhr.onerror = function() {
+            document.getElementById('loading').style.display = 'none';
+            errorResult.style.display = 'block';
+            errorResult.textContent = 'Có lỗi kết nối, vui lòng thử lại!';
+            statusResult.style.display = 'none';
+        };
+
+        xhr.send();
+    }
+
+    function updateOrderStatus(response, orderId) {
+        document.getElementById('loading').style.display = 'none';
+        const statusResult = document.getElementById('statusResult');
+        const errorResult = document.getElementById('errorResult');
+
+        if (response && response.success) {
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            let updated = false;
+
+            orders = orders.map(order => {
+                if (order.transferContent === orderId) {
+                    updated = true;
+                    return { ...order, status: response.status };
+                }
+                return order;
+            });
+
+            if (updated) {
+                localStorage.setItem('orders', JSON.stringify(orders));
+                displayOrders();
+                highlightOrder(orderId);
+            }
+
+            statusResult.style.display = 'block';
+            statusResult.textContent = `Trạng thái đơn hàng: ${response.status}`;
+            errorResult.style.display = 'none';
+        } else {
+            errorResult.style.display = 'block';
+            errorResult.textContent = response.message || 'Không tìm thấy đơn hàng!';
+            statusResult.style.display = 'none';
+        }
+    }
+
+    function startAutoRefresh() {
+        if (autoRefreshInterval) clearInterval(autoRefreshInterval);
+        
+        autoRefreshInterval = setInterval(() => {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.forEach(order => {
+                if (order.status === 'Chờ thanh toán') {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', `${SHEET_URL}?action=checkStatus&orderId=${order.transferContent}&t=${new Date().getTime()}`, true);
+                    
+                    xhr.onload = function() {
+                        try {
+                            const response = JSON.parse(xhr.responseText);
+                            if (response.success && response.status !== order.status) {
+                                updateOrderStatus(response, order.transferContent);
+                            }
+                        } catch (error) {
+                            console.error('Auto refresh error:', error);
+                        }
+                    };
+                    
+                    xhr.send();
+                }
+            });
+        }, 5000); // Check every 5 seconds
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        calculateTotal();
+        displayOrders();
+        startAutoRefresh();
+    });
+</script>
+
+</body>
+</html>
