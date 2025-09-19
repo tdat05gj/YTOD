@@ -276,7 +276,7 @@
         }
     }
 </style>
-
+  
 </head>
 <body>
     <div class="container">
@@ -321,8 +321,47 @@
 
             <div class="loading" id="loading"></div>
         </div>
+<style>
+  @keyframes multiColorBlink {
+    0% { background-color: #FF6347; } /* Màu đỏ */
+    25% { background-color: #FFD700; } /* Màu vàng */
+    50% { background-color: #32CD32; } /* Màu xanh lá */
+    75% { background-color: #1E90FF; } /* Màu xanh dương */
+    100% { background-color: #FF6347; } /* Màu đỏ */
+  }
 
-       
+  footer {
+    background-color: #FF6347;
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    border-radius: 10px;
+    animation: multiColorBlink 3s infinite alternate;
+  }
+
+  footer p {
+    margin: 0;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  footer span {
+    font-weight: bold;
+    color: #FF9900;
+    text-decoration: underline;
+  }
+
+  footer:hover {
+    background-color: #FF4500;
+  }
+</style>
+
+<footer>
+  <p>View thật nhưng view nhiều nước lộn xộn. Cam kết <span>1000% view sạch</span>.</p>
+</footer>
+
 
         <div class="card order-history">
             <h2>Lịch Sử Đơn Hàng</h2>
