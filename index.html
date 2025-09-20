@@ -638,10 +638,91 @@
             padding: 16px 24px;
             font-size: 14px;
         }
-    }
+  }
+
 </style>
 </head>
 <body>
+  <!-- Floating Contact Support Widget -->
+<div class="support-widget">
+  <div class="support-label">
+    📞 Liên hệ hỗ trợ
+  </div>
+  <div class="support-links">
+    <a href="https://www.facebook.com/dotandat205" target="_blank" title="Facebook">
+      <img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook">
+    </a>
+    <a href="https://t.me/tdatgj" target="_blank" title="Telegram">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+    </a>
+    <a href="https://zalo.me/g/vneogm213" target="_blank" title="Zalo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Zalo">
+    </a>
+  </div>
+</div>
+
+<style>
+  .support-widget {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .support-label {
+    background-color: #007aff;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .support-label:hover {
+    background-color: #005dc1;
+  }
+
+  .support-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+  .support-widget:hover .support-links {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .support-links a img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: white;
+  }
+
+  .support-links a img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  }
+</style>
+
     <div class="container">
         <div class="card">
             <h2>🚀 Dịch Vụ Tăng View YouTube Premium</h2>
@@ -719,6 +800,8 @@
                     <tbody id="orderTableBody">
                     </tbody>
                 </table>
+                <div class="contact-support">
+
             </div>
         </div>
     </div>
@@ -728,7 +811,7 @@
     
     // PRICING CONFIGURATION - Easy to update rates here
     const PRICING = {
-        '1min': 16,   // 16 VND per view for 1 minute watch time
+        '1min': 33,   // 33 VND per view for 1 minute watch time
         '10min': 166   // 166 VND per view for 10 minutes watch time
     };
     
