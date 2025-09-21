@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dịch Vụ Tăng View YouTube</title>
+    <title>Dịch Vụ View Sub Like YouTube</title>
+     <link rel="icon" href="./gj.jpg" />
     <style>
     * {
         box-sizing: border-box;
@@ -231,76 +232,122 @@
     }
 
     /* Package Selection Styles */
-    .package-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .package-category {
-        background: linear-gradient(135deg, #ffffff, #f7fafc);
+    .package-selector {
+        background: linear-gradient(135deg, #f7fafc, #edf2f7);
         border-radius: 20px;
-        padding: 24px;
+        padding: 30px;
+        margin: 20px 0;
         border: 2px solid #e2e8f0;
-        transition: all 0.3s ease;
     }
 
-    .package-category:hover {
-        border-color: #667eea;
-        transform: translateY(-4px);
-        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.15);
-    }
-
-    .category-header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .category-title {
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .premium .category-title {
-        color: #9f7aea;
-    }
-
-    .standard .category-title {
-        color: #4299e1;
-    }
-
-    .category-subtitle {
-        font-size: 14px;
-        color: #718096;
-        font-weight: 500;
-    }
-
-    .package-options {
+    .package-tabs {
         display: flex;
-        flex-direction: column;
-        gap: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 16px;
+        padding: 6px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        flex-wrap: wrap;
+        gap: 4px;
     }
 
-    .package-option {
-        padding: 16px;
-        border: 2px solid #e2e8f0;
+    .package-tab {
+        flex: 1;
+        min-width: 120px;
+        padding: 12px 16px;
+        text-align: center;
         border-radius: 12px;
         cursor: pointer;
         transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.8);
+        font-weight: 600;
+        font-size: 14px;
+        border: 2px solid transparent;
         position: relative;
+        overflow: hidden;
+    }
+
+    .package-tab:hover {
+        background: rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .package-tab.active {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .package-tab::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .package-tab:hover::before {
+        left: 100%;
+    }
+
+    .package-content {
+        display: none;
+    }
+
+    .package-content.active {
+        display: block;
+        animation: fadeInUp 0.4s ease-out;
+    }
+
+    .package-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+    }
+
+    .package-option {
+        background: rgba(255, 255, 255, 0.9);
+        border: 3px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    .package-option::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 0;
     }
 
     .package-option:hover {
         border-color: #667eea;
-        background: rgba(102, 126, 234, 0.05);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .package-option:hover::before {
+        opacity: 1;
     }
 
     .package-option.selected {
         border-color: #667eea;
-        background: rgba(102, 126, 234, 0.1);
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.25);
     }
 
     .package-option.selected::after {
@@ -308,42 +355,65 @@
         position: absolute;
         top: 12px;
         right: 12px;
-        width: 24px;
-        height: 24px;
-        background: #667eea;
+        width: 28px;
+        height: 28px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
         color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        z-index: 2;
+        animation: checkmark 0.3s ease-out;
     }
 
-    .package-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
+    .package-option > * {
+        position: relative;
+        z-index: 1;
     }
 
     .package-views {
-        font-size: 16px;
-        font-weight: 700;
+        font-size: 20px;
+        font-weight: 800;
         color: #2d3748;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .package-price {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 700;
-        color: #667eea;
+        color: #e53e3e;
+        margin-bottom: 8px;
     }
 
     .package-duration {
-        font-size: 13px;
+        font-size: 12px;
         color: #718096;
         font-weight: 500;
+        line-height: 1.4;
     }
+
+    .package-description {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 12px;
+        font-size: 14px;
+        color: #4a5568;
+        border-left: 4px solid;
+    }
+
+    .view-1min .package-description { border-left-color: #9f7aea; }
+    .view-10min .package-description { border-left-color: #4299e1; }
+    .sub-view .package-description { border-left-color: #f6ad55; }
+    .like-view .package-description { border-left-color: #f56565; }
 
     .payment-info {
         background: linear-gradient(135deg, #f0f4ff, #e6f3ff);
@@ -498,6 +568,79 @@
     .status-completed { color: #2ecc71; font-weight: 700; }
     .status-cancelled { color: #c0392b; font-weight: 700; }
 
+    /* Service and Status Badges */
+    .service-badge, .status-badge {
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .service-view-1min {
+        background: rgba(159, 122, 234, 0.2);
+        color: #9f7aea;
+        border: 1px solid rgba(159, 122, 234, 0.3);
+    }
+
+    .service-view-10min {
+        background: rgba(66, 153, 225, 0.2);
+        color: #4299e1;
+        border: 1px solid rgba(66, 153, 225, 0.3);
+    }
+
+    .service-sub-view {
+        background: rgba(246, 173, 85, 0.2);
+        color: #f6ad55;
+        border: 1px solid rgba(246, 173, 85, 0.3);
+    }
+
+    .service-like-view {
+        background: rgba(245, 101, 101, 0.2);
+        color: #f56565;
+        border: 1px solid rgba(245, 101, 101, 0.3);
+    }
+
+    .status-badge.status-pending {
+        background: rgba(243, 156, 18, 0.2);
+        color: #f39c12;
+        border: 1px solid rgba(243, 156, 18, 0.3);
+    }
+
+    .status-badge.status-paid {
+        background: rgba(39, 174, 96, 0.2);
+        color: #27ae60;
+        border: 1px solid rgba(39, 174, 96, 0.3);
+    }
+
+    .status-badge.status-processing {
+        background: rgba(41, 128, 185, 0.2);
+        color: #2980b9;
+        border: 1px solid rgba(41, 128, 185, 0.3);
+    }
+
+    .status-badge.status-completed {
+        background: rgba(46, 204, 113, 0.2);
+        color: #2ecc71;
+        border: 1px solid rgba(46, 204, 113, 0.3);
+    }
+
+    .status-badge.status-cancelled {
+        background: rgba(192, 57, 43, 0.2);
+        color: #c0392b;
+        border: 1px solid rgba(192, 57, 43, 0.3);
+    }
+
+    #orderTable code {
+        background: rgba(102, 126, 234, 0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        color: #667eea;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
     @keyframes spin {
         to { transform: rotate(360deg); }
     }
@@ -513,12 +656,38 @@
         }
     }
 
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes checkmark {
+        0% {
+            transform: scale(0) rotate(-180deg);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.2) rotate(-90deg);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+    }
+
     @keyframes multiColorBlink {
-        0% { background-color: #FF6347; }   /* Màu đỏ */
-        25% { background-color: #FFD700; }  /* Màu vàng */
-        50% { background-color: #32CD32; }  /* Màu xanh lá */
-        75% { background-color: #1E90FF; }  /* Màu xanh dương */
-        100% { background-color: #FF6347; } /* Màu đỏ */
+        0% { background-color: #FF6347; }
+        25% { background-color: #FFD700; }
+        50% { background-color: #32CD32; }
+        75% { background-color: #1E90FF; }
+        100% { background-color: #FF6347; }
     }
 
     footer {
@@ -554,8 +723,64 @@
         background-color: #FF4500;
     }
 
-    @keyframes rotate {
-        to { transform: rotate(360deg); }
+    .support-widget {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 9999;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .support-label {
+        background-color: #007aff;
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 10px 16px;
+        border-radius: 25px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .support-label:hover {
+        background-color: #005dc1;
+    }
+
+    .support-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 12px;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+
+    .support-widget:hover .support-links {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .support-links a img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background: white;
+    }
+
+    .support-links a img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
     }
 
     /* Mobile Responsiveness */
@@ -584,25 +809,53 @@
             height: auto;
         }
 
-        .package-grid {
-            grid-template-columns: 1fr;
-            gap: 16px;
+        .package-tabs {
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .package-category {
-            padding: 20px;
+        .package-tab {
+            min-width: auto;
+            flex: none;
+        }
+
+        .package-grid {
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .package-option {
+            padding: 16px;
         }
 
         .payment-info {
             padding: 20px;
         }
 
+        /* Mobile table styles */
+        .order-history {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         #orderTable {
-            font-size: 12px;
+            font-size: 11px;
+            min-width: 900px; /* Ensure table doesn't get too cramped */
         }
 
         #orderTable th, #orderTable td {
-            padding: 12px 8px;
+            padding: 8px 6px;
+            white-space: nowrap;
+        }
+
+        .service-badge, .status-badge {
+            font-size: 10px;
+            padding: 3px 6px;
+        }
+
+        #orderTable code {
+            font-size: 10px;
+            padding: 1px 4px;
         }
 
         footer {
@@ -626,6 +879,11 @@
             margin-bottom: 24px;
         }
 
+        .package-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
         .package-option {
             padding: 12px;
         }
@@ -638,94 +896,41 @@
             padding: 16px 24px;
             font-size: 14px;
         }
-  }
 
-</style>
+        /* Very small screen table adjustments */
+        #orderTable {
+            font-size: 10px;
+        }
+
+        .service-badge, .status-badge {
+            font-size: 9px;
+            padding: 2px 4px;
+        }
+    }
+    </style>
 </head>
 <body>
-  <!-- Floating Contact Support Widget -->
-<div class="support-widget">
-  <div class="support-label">
-    📞 Liên hệ hỗ trợ
-  </div>
-  <div class="support-links">
-    <a href="https://www.facebook.com/dotandat205" target="_blank" title="Facebook">
-      <img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook">
-    </a>
-    <a href="https://t.me/tdatgj" target="_blank" title="Telegram">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
-    </a>
-    <a href="https://zalo.me/g/vneogm213" target="_blank" title="Zalo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Zalo">
-    </a>
-  </div>
-</div>
-
-<style>
-  .support-widget {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 9999;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .support-label {
-    background-color: #007aff;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px 16px;
-    border-radius: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .support-label:hover {
-    background-color: #005dc1;
-  }
-
-  .support-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 12px;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-  }
-
-  .support-widget:hover .support-links {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .support-links a img {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    background: white;
-  }
-
-  .support-links a img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-  }
-</style>
+    <!-- Floating Contact Support Widget -->
+    <div class="support-widget">
+        <div class="support-label">
+            📞 Liên hệ hỗ trợ
+        </div>
+        <div class="support-links">
+            <a href="https://www.facebook.com/dotandat205" target="_blank" title="Facebook">
+                <img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook">
+            </a>
+            <a href="https://t.me/tdatgj" target="_blank" title="Telegram">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+            </a>
+            <a href="https://zalo.me/g/vneogm213" target="_blank" title="Zalo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Zalo">
+            </a>
+        </div>
+    </div>
 
     <div class="container">
         <div class="card">
-            <h2>🚀 Dịch Vụ Tăng View YouTube Premium</h2>
+            <h2>YTOD</h2>
             <form id="orderForm">
                 <div class="input-group">
                     <label>🔗 Link Video YouTube:</label>
@@ -751,16 +956,54 @@
                 
                 <div class="input-group">
                     <label>📦 Chọn Gói Dịch Vụ:</label>
-                    <div class="package-grid" id="packageGrid">
-                        <!-- Packages will be generated dynamically -->
+                    <div class="package-selector">
+                        <div class="package-tabs">
+                            <div class="package-tab active" data-tab="view-1min">⚡ View 1 phút</div>
+                            <div class="package-tab" data-tab="view-10min">💰 View 10 phút</div>
+                            <div class="package-tab" data-tab="sub-view">👥 Sub + View</div>
+                            <div class="package-tab" data-tab="like-view">👍 Like + View</div>
+                        </div>
+
+                        <div class="package-content active view-1min" data-content="view-1min">
+                            <div class="package-description">
+                                ⚡ <strong>View nhanh 1 phút</strong> - Tăng view nhanh chóng với thời gian xem ngắn, phù hợp cho video ngắn và cần tăng lượt xem nhanh.
+                            </div>
+                            <div class="package-grid" id="view-1min-grid"></div>
+                        </div>
+
+                        <div class="package-content view-10min" data-content="view-10min">
+                            <div class="package-description">
+                                💰 <strong>View 10 phút</strong> - Giá rẻ nhất, chất lượng cao với thời gian xem dài, tăng retention rate cho video của bạn.
+                            </div>
+                            <div class="package-grid" id="view-10min-grid"></div>
+                        </div>
+
+                        <div class="package-content sub-view" data-content="sub-view">
+                            <div class="package-description">
+                                👥 <strong>Sub + View</strong> - Người xem sẽ đăng ký kênh và xem video của bạn, tăng cả subscriber và view cùng lúc.
+                            </div>
+                            <div class="package-grid" id="sub-view-grid"></div>
+                        </div>
+
+                        <div class="package-content like-view" data-content="like-view">
+                            <div class="package-description">
+                                👍 <strong>Like + View</strong> - Tăng cả lượt thích và view, cải thiện engagement và độ tương tác của video.
+                            </div>
+                            <div class="package-grid" id="like-view-grid"></div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="payment-info">
-                    <p>📊 Số view: <strong><span id="totalViews">50</span> view</strong></p>
-                    <p>⏱️ Thời gian xem/view: <strong><span id="timePerView">10</span> phút</strong></p>
-                    <p>⏰ Tổng thời gian: <strong><span id="totalTime">8.33</span> giờ</strong></p>
-                    <p>💰 Tổng tiền: <strong><span id="totalPrice">8.300</span> VNĐ</strong></p>
+                    <p><span id="viewLabel">📊 Số view:</span> <strong><span id="totalViews">50 view</span></strong></p>
+                    <p id="timePerViewRow">⏱️ Thời gian xem/view: <strong><span id="timePerView">1</span> phút</strong></p>
+                    <p id="totalTimeRow">⏰ Tổng thời gian: <strong><span id="totalTime">0.83</span> giờ</strong></p>
+                    <p>💰 Tổng tiền: <strong><span id="totalPrice">1.650</span> VNĐ</strong></p>
+                    <div id="subLikeWarning" style="display: none; margin-top: 15px; padding: 12px; background: rgba(255, 0, 0, 0.1); border-left: 4px solid #ff0000; border-radius: 8px;">
+                        <p style="color: #ff0000; font-size: 14px; font-weight: 600; margin: 0; line-height: 1.4;">
+                            ⚠️Sub và Like 100% là người dùng thật nhưng cũng không tránh được việc tụt sub và like, cân nhắc kỹ trước khi mua.
+                        </p>
+                    </div>
                 </div>
 
                 <button type="submit">🛒 Đặt Hàng Ngay</button>
@@ -772,7 +1015,7 @@
                 <div class="payment-info">
                     <p>💵 Số tiền: <strong><span id="paymentAmount">0</span> VNĐ</strong></p>
                     <p>📝 Nội dung chuyển khoản: <strong><span id="transferContent"></span></strong></p>
-                    <p><small>⚠️ Vui lòng chuyển khoản đúng nội dung để được </small></p>
+                    <p><small>⚠️ Vui lòng chuyển khoản đúng nội dung để được xử lý nhanh nhất</small></p>
                 </div>
             </div>
 
@@ -780,160 +1023,238 @@
         </div>
 
         <footer>
-            <p>View thật nhưng view nhiều nước lộn xộn. Cam kết <span>1000% view sạch</span>.</p>
+            <p>View-Sub-Like thật nhưng nhiều nước lộn xộn. Cam kết <span>1000%</span> sạch.</p>
         </footer>
 
         <div class="card order-history">
-            <h2> Lịch Sử Đơn Hàng</h2>
+            <h2>Lịch Sử Đơn Hàng</h2>
             <div class="order-list">
                 <table id="orderTable">
                     <thead>
                         <tr>
                             <th>🕒 Thời gian</th>
-                            <th>🎬 Video</th>
-                            <th>👁️ Views</th>
-                            <th>💰 Tiền</th>
+                            <th>🎬 Link Video</th>
+                            <th>🆔 Video ID</th>
+                            <th>📊 Số lượng</th>
+                            <th>💰 Tổng tiền</th>
                             <th>🔖 Mã đơn</th>
                             <th>📊 Trạng thái</th>
+                            <th>📦 Dịch vụ</th>
                         </tr>
                     </thead>
                     <tbody id="orderTableBody">
                     </tbody>
                 </table>
-                <div class="contact-support">
-
             </div>
         </div>
     </div>
 
-   <script>
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw6x2RIGglUNt9YQF449i6RDNEQB6ixIyS44KJX8Mi4rfcuN9kTYOlScVY2gLRDbNf_/exec';
-    
-    // PRICING CONFIGURATION - Easy to update rates here
-    const PRICING = {
-        '1min': 33,   // 33 VND per view for 1 minute watch time
-        '10min': 166   // 166 VND per view for 10 minutes watch time
-    };
-    
-    // PACKAGE CONFIGURATION - Easy to add/modify packages
-    const PACKAGES = {
-        premium: {
-            title: '⚡ View 1 phút',
-            subtitle: 'View nhanh - Chất lượng cao',
-            color: '#9f7aea',
-            watchTime: '1min',
-            options: [50, 100, 500, 1000, 2500]
-        },
-        standard: {
-            title: '💰 View 10 Phút ', 
-            subtitle: 'Giá rẻ - Chất lượng cao - Hiệu quả ổn định',
-            color: '#4299e1',
-            watchTime: '10min',
-            options: [50, 100, 500, 1000, 2500]
-        }
-    };
-    
-    let autoRefreshInterval;
-    let selectedPackage = '50-10min'; // Default selection
-
-    // YouTube API functionality
-    function extractVideoId(url) {
-        const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-        const match = url.match(regex);
-        return match ? match[1] : null;
-    }
-
-    async function getVideoInfo(videoId) {
-        try {
-            // Using YouTube oEmbed API (no API key required)
-            const oEmbedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
-            const response = await fetch(oEmbedUrl);
-            
-            if (!response.ok) throw new Error('Video not found');
-            
-            const data = await response.json();
-            
-            return {
-                title: data.title,
-                author: data.author_name,
-                thumbnail: data.thumbnail_url
-            };
-        } catch (error) {
-            throw new Error('Link YouTube không hợp lệ');
-        }
-    }
-
-    function formatNumber(num) {
-        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-        return num.toString();
-    }
-
-    // Generate packages dynamically based on configuration
-    function generatePackages() {
-        const packageGrid = document.getElementById('packageGrid');
-        packageGrid.innerHTML = '';
-
-        Object.entries(PACKAGES).forEach(([key, config]) => {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.className = `package-category ${key}`;
-            
-            const optionsHtml = config.options.map((views, index) => {
-                const packageValue = `${views}-${config.watchTime}`;
-                const pricePerView = PRICING[config.watchTime];
-                const totalPrice = views * pricePerView;
-                const watchTimeMinutes = config.watchTime === '1min' ? 1 : 10;
-                const totalHours = (views * watchTimeMinutes / 60).toFixed(2);
-                const isSelected = packageValue === selectedPackage;
-                
-                return `
-                    <div class="package-option ${isSelected ? 'selected' : ''}" data-value="${packageValue}">
-                        <div class="package-info">
-                            <div class="package-views">${views} Views</div>
-                            <div class="package-price">${totalPrice.toLocaleString()}₫</div>
-                        </div>
-                        <div class="package-duration">⏱️ ${watchTimeMinutes} phút/view • ${totalHours} giờ</div>
-                    </div>
-                `;
-            }).join('');
-
-            categoryDiv.innerHTML = `
-                <div class="category-header">
-                    <div class="category-title">${config.title}</div>
-                    <div class="category-subtitle">${config.subtitle}</div>
-                </div>
-                <div class="package-options">
-                    ${optionsHtml}
-                </div>
-            `;
-
-            packageGrid.appendChild(categoryDiv);
-        });
-    }
-
-    function calculateTotal() {
-        const [viewsStr, durationStr] = selectedPackage.split('-');
-        const views = parseInt(viewsStr);
-        const pricePerView = PRICING[durationStr];
-        const watchTimeMinutes = durationStr === '1min' ? 1 : 10;
+    <script>
+        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzYe8NL2zmSk4pFCZvdaSK6sV0V0i2YhJ-Omn2_7FS0ud939nWbUJpOS7_voa7OFaQ/exec';
         
-        const totalMinutes = views * watchTimeMinutes;
-        const totalHours = (totalMinutes / 60).toFixed(2);
-        const totalPrice = views * pricePerView;
+        // PRICING CONFIGURATION - Easy to update rates here
+        const PRICING = {
+            'view-1min': 33,      // 33 VND per view for 1 minute watch time
+            'view-10min': 166,    // 166 VND per view for 10 minutes watch time
+            'sub-view': 50,       // 50 VND per view for sub and view package
+            'like-view': 42       // 42 VND per view for like and view package
+        };
+        
+        // PACKAGE CONFIGURATION - Easy to add/modify packages
+        const PACKAGES = {
+            'view-1min': {
+                name: 'View 1 phút',
+                description: 'View nhanh - Chất lượng cao',
+                watchTimeMinutes: 1,
+                options: [50, 100, 500, 1000, 2500, 5000]
+            },
+            'view-10min': {
+                name: 'View 10 phút', 
+                description: 'Giá rẻ - Chất lượng cao - Hiệu quả ổn định',
+                watchTimeMinutes: 10,
+                options: [50, 100, 500, 1000, 2500, 5000]
+            },
+            'sub-view': {
+                name: 'Sub + View',
+                description: 'Xem video và đăng ký kênh',
+                watchTimeMinutes: 3,
+                options: [50, 100, 500, 1000, 2500]
+            },
+            'like-view': {
+                name: 'Like + View',
+                description: 'Tăng tương tác video',
+                watchTimeMinutes: 2,
+                options: [50, 100, 500, 1000, 2500]
+            }
+        };
+        
+        let autoRefreshInterval;
+        let selectedPackage = 'view-1min';
+        let selectedViews = 50;
 
-        // Update display
-        document.getElementById('totalViews').textContent = views;
-        document.getElementById('timePerView').textContent = watchTimeMinutes;
-        document.getElementById('totalTime').textContent = totalHours;
-        document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
-        document.getElementById('paymentAmount').textContent = totalPrice.toLocaleString();
-    }
+        // YouTube API functionality
+        function extractVideoId(url) {
+            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
 
-    // Package selection functionality
-    function initPackageSelection() {
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.package-option')) {
+        async function getVideoInfo(videoId) {
+            try {
+                // Using YouTube oEmbed API (no API key required)
+                const oEmbedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+                const response = await fetch(oEmbedUrl);
+                
+                if (!response.ok) throw new Error('Video not found');
+                
+                const data = await response.json();
+                
+                return {
+                    title: data.title,
+                    author: data.author_name,
+                    thumbnail: data.thumbnail_url,
+                    videoId: videoId
+                };
+            } catch (error) {
+                throw new Error('Link YouTube không hợp lệ');
+            }
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        // Generate packages dynamically based on configuration
+        function generatePackages() {
+            Object.entries(PACKAGES).forEach(([packageType, config]) => {
+                const grid = document.getElementById(`${packageType}-grid`);
+                if (!grid) return;
+                
+                grid.innerHTML = '';
+
+                config.options.forEach(views => {
+                    const pricePerView = PRICING[packageType];
+                    const totalPrice = views * pricePerView;
+                    const isSelected = packageType === selectedPackage && views === selectedViews;
+                    
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = `package-option ${isSelected ? 'selected' : ''}`;
+                    optionDiv.dataset.package = packageType;
+                    optionDiv.dataset.views = views;
+                    
+                    // Different display for different package types
+                    if (packageType === 'sub-view') {
+                        optionDiv.innerHTML = `
+                            <div class="package-views">${formatNumber(views)} Sub + ${formatNumber(views)} View</div>
+                            <div class="package-price">${totalPrice.toLocaleString()}₫</div>
+                        `;
+                    } else if (packageType === 'like-view') {
+                        optionDiv.innerHTML = `
+                            <div class="package-views">${formatNumber(views)} Like + ${formatNumber(views)} View</div>
+                            <div class="package-price">${totalPrice.toLocaleString()}₫</div>
+                        `;
+                    } else {
+                        const totalHours = (views * config.watchTimeMinutes / 60).toFixed(2);
+                        optionDiv.innerHTML = `
+                            <div class="package-views">${formatNumber(views)} View</div>
+                            <div class="package-price">${totalPrice.toLocaleString()}₫</div>
+                            <div class="package-duration">⏱️ ${config.watchTimeMinutes}p/view • ${totalHours}h</div>
+                        `;
+                    }
+
+                    grid.appendChild(optionDiv);
+                });
+            });
+        }
+
+        function calculateTotal() {
+            const packageConfig = PACKAGES[selectedPackage];
+            if (!packageConfig) return;
+            
+            const pricePerView = PRICING[selectedPackage];
+            const watchTimeMinutes = packageConfig.watchTimeMinutes;
+            
+            const totalMinutes = selectedViews * watchTimeMinutes;
+            const totalHours = (totalMinutes / 60).toFixed(2);
+            const totalPrice = selectedViews * pricePerView;
+
+            // Get time-related elements
+            const timePerViewRow = document.getElementById('timePerViewRow');
+            const totalTimeRow = document.getElementById('totalTimeRow');
+
+            // Update display based on package type
+            if (selectedPackage === 'sub-view') {
+                document.getElementById('viewLabel').innerHTML = '👥 Số sub + view:';
+                document.getElementById('totalViews').innerHTML = `${formatNumber(selectedViews)} sub + ${formatNumber(selectedViews)} view`;
+                // Hide time-related rows for sub+view
+                timePerViewRow.style.display = 'none';
+                totalTimeRow.style.display = 'none';
+            } else if (selectedPackage === 'like-view') {
+                document.getElementById('viewLabel').innerHTML = '👍 Số like + view:';
+                document.getElementById('totalViews').innerHTML = `${formatNumber(selectedViews)} like + ${formatNumber(selectedViews)} view`;
+                // Hide time-related rows for like+view
+                timePerViewRow.style.display = 'none';
+                totalTimeRow.style.display = 'none';
+            } else {
+                document.getElementById('viewLabel').innerHTML = '📊 Số view:';
+                document.getElementById('totalViews').textContent = formatNumber(selectedViews) + ' view';
+                // Show time-related rows for regular view packages
+                timePerViewRow.style.display = 'block';
+                totalTimeRow.style.display = 'block';
+                document.getElementById('timePerView').textContent = watchTimeMinutes;
+                document.getElementById('totalTime').textContent = totalHours;
+            }
+            
+            document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
+            document.getElementById('paymentAmount').textContent = totalPrice.toLocaleString();
+
+            // Show/hide warning for sub and like packages
+            const warningElement = document.getElementById('subLikeWarning');
+            if (selectedPackage === 'sub-view' || selectedPackage === 'like-view') {
+                warningElement.style.display = 'block';
+            } else {
+                warningElement.style.display = 'none';
+            }
+        }
+
+        // Tab switching functionality
+        function initTabSwitching() {
+            const tabs = document.querySelectorAll('.package-tab');
+            const contents = document.querySelectorAll('.package-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.querySelector(`[data-content="${tabId}"]`).classList.add('active');
+                    
+                    // Update selected package and reset to first option
+                    selectedPackage = tabId;
+                    selectedViews = PACKAGES[tabId].options[0];
+                    
+                    // Regenerate packages and recalculate
+                    generatePackages();
+                    calculateTotal();
+                });
+            });
+        }
+
+        // Package selection functionality
+        function initPackageSelection() {
+            document.addEventListener('click', function(e) {
                 const option = e.target.closest('.package-option');
+                if (!option) return;
+                
+                const packageType = option.dataset.package;
+                const views = parseInt(option.dataset.views);
                 
                 // Remove selected class from all options
                 document.querySelectorAll('.package-option').forEach(opt => 
@@ -943,282 +1264,354 @@
                 // Add selected class to clicked option
                 option.classList.add('selected');
                 
-                // Update selected package
-                selectedPackage = option.dataset.value;
+                // Update selected package and views
+                selectedPackage = packageType;
+                selectedViews = views;
                 
                 // Recalculate total
                 calculateTotal();
+            });
+        }
+
+        async function handleVideoLinkChange() {
+            const videoLink = document.getElementById('videoLink').value.trim();
+            const preview = document.getElementById('videoPreview');
+            const error = document.getElementById('videoError');
+            
+            // Hide previous results
+            preview.classList.remove('show');
+            error.style.display = 'none';
+            
+            if (!videoLink) return;
+            
+            const videoId = extractVideoId(videoLink);
+            if (!videoId) {
+                error.style.display = 'block';
+                error.textContent = 'Link YouTube không hợp lệ. Vui lòng nhập đúng định dạng.';
+                return;
             }
-        });
-    }
-
-    async function handleVideoLinkChange() {
-        const videoLink = document.getElementById('videoLink').value.trim();
-        const preview = document.getElementById('videoPreview');
-        const error = document.getElementById('videoError');
-        
-        // Hide previous results
-        preview.classList.remove('show');
-        error.style.display = 'none';
-        
-        if (!videoLink) return;
-        
-        const videoId = extractVideoId(videoLink);
-        if (!videoId) {
-            return;
-        }
-        
-        try {
-            const videoInfo = await getVideoInfo(videoId);
             
-            // Update preview
-            document.getElementById('thumbnailImg').src = videoInfo.thumbnail;
-            document.getElementById('videoTitle').textContent = videoInfo.title;
-            document.getElementById('videoChannel').textContent = videoInfo.author;
-            document.getElementById('videoViews').textContent = 'YouTube Video';
-            document.getElementById('videoDuration').textContent = 'ID: ' + videoId;
-            
-            preview.classList.add('show');
-        } catch (err) {
-            // Không hiển thị lỗi, chỉ ẩn preview
-        }
-    }
-
-    function saveOrder(orderData) {
-        let orders = JSON.parse(localStorage.getItem('orders') || '[]');
-        orders.push({
-            timestamp: new Date().toLocaleString(),
-            ...orderData
-        });
-        localStorage.setItem('orders', JSON.stringify(orders));
-        displayOrders();
-    }
-
-    function displayOrders() {
-        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-        const tableBody = document.getElementById('orderTableBody');
-        tableBody.innerHTML = '';
-
-        orders.reverse().forEach(order => {
-            const row = document.createElement('tr');
-            row.style.opacity = '0';
-            row.style.transform = 'translateY(-10px)';
-            row.style.transition = 'all 0.3s ease';
-            
-            row.innerHTML = `
-                <td>${order.timestamp}</td>
-                <td>${order.videoLink}</td>
-                <td>${order.views}</td>
-                <td>${parseInt(order.totalPrice).toLocaleString()} VNĐ</td>
-                <td>${order.transferContent}</td>
-                <td class="status-${getStatusClass(order.status || 'Chờ thanh toán')}">${order.status || 'Chờ thanh toán'}</td>
-            `;
-            
-            tableBody.appendChild(row);
-            
-            setTimeout(() => {
-                row.style.opacity = '1';
-                row.style.transform = 'translateY(0)';
-            }, 50);
-        });
-    }
-
-    function getStatusClass(status) {
-        switch(status.toLowerCase()) {
-            case 'chờ thanh toán': return 'pending';
-            case 'đã thanh toán': return 'paid';
-            case 'đang xử lý': return 'processing';
-            case 'hoàn thành': return 'completed';
-            case 'hủy': return 'cancelled';
-            default: return 'pending';
-        }
-    }
-
-    function highlightOrder(orderId) {
-        const tableRows = document.querySelectorAll('#orderTableBody tr');
-        tableRows.forEach(row => {
-            const orderCell = row.querySelector('td:nth-child(5)');
-            if (orderCell && orderCell.textContent === orderId) {
-                row.style.backgroundColor = '#e3f2fd';
-                setTimeout(() => {
-                    row.style.backgroundColor = '';
-                    row.style.transition = 'background-color 1s ease';
-                }, 2000);
-            }
-        });
-    }
-
-    // Event listeners
-    document.getElementById('videoLink').addEventListener('input', debounce(handleVideoLinkChange, 1000));
-
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const videoLink = document.getElementById('videoLink').value;
-        const [viewsStr, durationStr] = selectedPackage.split('-');
-        const views = parseInt(viewsStr);
-        const pricePerView = PRICING[durationStr];
-        const totalPrice = views * pricePerView;
-
-        document.getElementById('loading').style.display = 'block';
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', `${SHEET_URL}?videoLink=${encodeURIComponent(videoLink)}&views=${views}&totalPrice=${totalPrice}`, true);
-
-        xhr.onload = function() {
-            document.getElementById('loading').style.display = 'none';
             try {
-                const response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    const transferContent = response.orderId;
-
-                    document.getElementById('transferContent').textContent = transferContent;
-                    document.getElementById('qrCode').style.display = 'block';
-                    
-                    saveOrder({
-                        videoLink: videoLink,
-                        views: views,
-                        totalPrice: totalPrice,
-                        transferContent: transferContent,
-                        status: 'Chờ thanh toán'
-                    });
-
-                    alert('Đơn hàng đã được ghi nhận!');
-                    startAutoRefresh();
-                } else {
-                    alert(response.message || 'Có lỗi xảy ra!');
-                }
+                const videoInfo = await getVideoInfo(videoId);
+                
+                // Update preview
+                document.getElementById('thumbnailImg').src = videoInfo.thumbnail;
+                document.getElementById('videoTitle').textContent = videoInfo.title;
+                document.getElementById('videoChannel').textContent = `📺 ${videoInfo.author}`;
+                document.getElementById('videoViews').textContent = `🎬 YouTube Video`;
+                document.getElementById('videoDuration').textContent = `🆔 ${videoId}`;
+                
+                preview.classList.add('show');
+                error.style.display = 'none';
             } catch (err) {
-                alert('Có lỗi khi xử lý phản hồi từ server!');
+                error.style.display = 'block';
+                error.textContent = 'Không thể tải thông tin video. Vui lòng kiểm tra link và thử lại.';
+                preview.classList.remove('show');
             }
-        };
-
-        xhr.onerror = function() {
-            document.getElementById('loading').style.display = 'none';
-            alert('Có lỗi xảy ra, vui lòng thử lại!');
-        };
-
-        xhr.send();
-    });
-
-    function checkOrderStatus() {
-        const orderId = document.getElementById('checkOrderId').value;
-        const statusResult = document.getElementById('statusResult');
-        const errorResult = document.getElementById('errorResult');
-
-        if (!orderId) {
-            errorResult.style.display = 'block';
-            errorResult.textContent = 'Vui lòng nhập mã đơn hàng!';
-            statusResult.style.display = 'none';
-            return;
         }
 
-        document.getElementById('loading').style.display = 'block';
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', `${SHEET_URL}?action=checkStatus&orderId=${orderId}&t=${new Date().getTime()}`, true);
-
-        xhr.onload = function() {
-            try {
-                const response = JSON.parse(xhr.responseText);
-                updateOrderStatus(response, orderId);
-            } catch (error) {
-                document.getElementById('loading').style.display = 'none';
-                errorResult.style.display = 'block';
-                errorResult.textContent = 'Có lỗi khi kiểm tra trạng thái!';
-                statusResult.style.display = 'none';
-            }
-        };
-
-        xhr.onerror = function() {
-            document.getElementById('loading').style.display = 'none';
-            errorResult.style.display = 'block';
-            errorResult.textContent = 'Có lỗi kết nối, vui lòng thử lại!';
-            statusResult.style.display = 'none';
-        };
-
-        xhr.send();
-    }
-
-    function updateOrderStatus(response, orderId) {
-        document.getElementById('loading').style.display = 'none';
-        const statusResult = document.getElementById('statusResult');
-        const errorResult = document.getElementById('errorResult');
-
-        if (response && response.success) {
+        function saveOrder(orderData) {
             let orders = JSON.parse(localStorage.getItem('orders') || '[]');
-            let updated = false;
+            orders.push({
+                timestamp: new Date().toLocaleString(),
+                ...orderData
+            });
+            localStorage.setItem('orders', JSON.stringify(orders));
+            displayOrders();
+        }
+
+        function displayOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const tableBody = document.getElementById('orderTableBody');
+            tableBody.innerHTML = '';
+
+            if (orders.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="8" style="text-align: center; color: #718096; font-style: italic; padding: 30px;">Chưa có đơn hàng nào</td>`;
+                tableBody.appendChild(row);
+                return;
+            }
+
+            orders.reverse().forEach(order => {
+                const row = document.createElement('tr');
+                row.style.opacity = '0';
+                row.style.transform = 'translateY(-10px)';
+                row.style.transition = 'all 0.3s ease';
+                
+                // Extract video ID from order
+                const videoId = order.videoId || extractVideoId(order.videoLink) || 'N/A';
+                
+                // Get service display info
+                const serviceInfo = getServiceDisplayInfo(order.packageType || 'view-1min', order.views);
+                const serviceName = order.serviceName || getServiceName(order.packageType || 'view-1min');
+                
+                // Truncate video link for display
+                const shortVideoLink = order.videoLink.length > 40 ? 
+                    order.videoLink.substring(0, 40) + '...' : 
+                    order.videoLink;
+                
+                row.innerHTML = `
+                    <td style="font-size: 13px;">${order.timestamp}</td>
+                    <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${order.videoLink}">
+                        <a href="${order.videoLink}" target="_blank" style="color: #667eea; text-decoration: none;">
+                            ${shortVideoLink}
+                        </a>
+                    </td>
+                    <td><code>${videoId}</code></td>
+                    <td style="font-weight: 600;">${formatNumber(order.views)}</td>
+                    <td style="font-weight: 700; color: #e53e3e;">${parseInt(order.totalPrice).toLocaleString()} VNĐ</td>
+                    <td><code style="font-size: 11px;">${order.transferContent}</code></td>
+                    <td><span class="status-badge status-${getStatusClass(order.status || 'Chờ thanh toán')}">${order.status || 'Chờ thanh toán'}</span></td>
+                    <td><span class="service-badge service-${order.packageType || 'view-1min'}">${serviceName}</span></td>
+                `;
+                
+                tableBody.appendChild(row);
+                
+                setTimeout(() => {
+                    row.style.opacity = '1';
+                    row.style.transform = 'translateY(0)';
+                }, 50);
+            });
+        }
+
+        function getServiceDisplayInfo(packageType, views) {
+            const formattedViews = formatNumber(views);
+            switch(packageType) {
+                case 'sub-view':
+                    return `👥 ${formattedViews} Sub + ${formattedViews} View`;
+                case 'like-view':
+                    return `👍 ${formattedViews} Like + ${formattedViews} View`;
+                case 'view-10min':
+                    return `👁️ ${formattedViews} View (10p)`;
+                case 'view-1min':
+                default:
+                    return `👁️ ${formattedViews} View (1p)`;
+            }
+        }
+
+        function getServiceName(packageType) {
+            const names = {
+                'view-1min': 'View 1 phút',
+                'view-10min': 'View 10 phút',
+                'sub-view': 'Sub + View',
+                'like-view': 'Like + View'
+            };
+            return names[packageType] || 'View 1 phút';
+        }
+
+        function getStatusClass(status) {
+            switch(status.toLowerCase()) {
+                case 'chờ thanh toán': return 'pending';
+                case 'đã thanh toán': return 'paid';
+                case 'đang xử lý': return 'processing';
+                case 'hoàn thành': return 'completed';
+                case 'hủy': return 'cancelled';
+                default: return 'pending';
+            }
+        }
+
+        function highlightOrder(orderId) {
+            const tableRows = document.querySelectorAll('#orderTableBody tr');
+            tableRows.forEach(row => {
+                const orderCell = row.querySelector('td:nth-child(6)');
+                if (orderCell && orderCell.textContent.trim() === orderId) {
+                    row.style.backgroundColor = '#e3f2fd';
+                    setTimeout(() => {
+                        row.style.backgroundColor = '';
+                        row.style.transition = 'background-color 1s ease';
+                    }, 2000);
+                }
+            });
+        }
+
+        // Event listeners
+        document.getElementById('videoLink').addEventListener('input', debounce(handleVideoLinkChange, 1000));
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const videoLink = document.getElementById('videoLink').value;
+            const packageConfig = PACKAGES[selectedPackage];
+            const pricePerView = PRICING[selectedPackage];
+            const totalPrice = selectedViews * pricePerView;
+
+            // Validation
+            if (!videoLink.trim()) {
+                alert('Vui lòng nhập link video YouTube!');
+                return;
+            }
+
+            const videoId = extractVideoId(videoLink);
+            if (!videoId) {
+                alert('Link YouTube không hợp lệ!');
+                return;
+            }
+
+            document.getElementById('loading').style.display = 'block';
+
+            const xhr = new XMLHttpRequest();
+            // Updated URL to include all required parameters
+            const url = `${SHEET_URL}?videoLink=${encodeURIComponent(videoLink)}&views=${selectedViews}&totalPrice=${totalPrice}&packageType=${selectedPackage}&serviceName=${encodeURIComponent(packageConfig.name)}&videoId=${videoId}&pricePerUnit=${pricePerView}`;
+            xhr.open('GET', url, true);
+
+            xhr.onload = function() {
+                document.getElementById('loading').style.display = 'none';
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        const transferContent = response.orderId;
+
+                        document.getElementById('transferContent').textContent = transferContent;
+                        document.getElementById('qrCode').style.display = 'block';
+                        
+                        saveOrder({
+                            videoLink: videoLink,
+                            videoId: videoId,
+                            views: selectedViews,
+                            totalPrice: totalPrice,
+                            transferContent: transferContent,
+                            packageType: selectedPackage,
+                            serviceName: packageConfig.name,
+                            pricePerUnit: pricePerView,
+                            status: 'Chờ thanh toán'
+                        });
+
+                        alert('Đơn hàng đã được ghi nhận! Vui lòng thanh toán để hoàn tất.');
+                        
+                        // Scroll to QR code
+                        document.getElementById('qrCode').scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                        
+                        startAutoRefresh();
+                    } else {
+                        alert(response.message || 'Có lỗi xảy ra khi tạo đơn hàng!');
+                    }
+                } catch (err) {
+                    alert('Có lỗi khi xử lý phản hồi từ server!');
+                    console.error('Parse error:', err);
+                }
+            };
+
+            xhr.onerror = function() {
+                document.getElementById('loading').style.display = 'none';
+                alert('Có lỗi kết nối, vui lòng thử lại!');
+            };
+
+            xhr.send();
+        });
+
+        function updateOrderStatus(response, orderId) {
+            const statusResult = document.getElementById('statusResult');
+            const errorResult = document.getElementById('errorResult');
+
+            if (response && response.success) {
+                let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                let updated = false;
+
+                orders = orders.map(order => {
+                    if (order.transferContent === orderId) {
+                        updated = true;
+                        return { ...order, status: response.status };
+                    }
+                    return order;
+                });
+
+                if (updated) {
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                    displayOrders();
+                    highlightOrder(orderId);
+                }
+            }
+        }
+
+        function startAutoRefresh() {
+            if (autoRefreshInterval) clearInterval(autoRefreshInterval);
+            
+            autoRefreshInterval = setInterval(() => {
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                orders.forEach(order => {
+                    if (order.status !== 'Hoàn thành' && order.status !== 'Hủy') {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('GET', `${SHEET_URL}?action=checkStatus&orderId=${order.transferContent}&t=${new Date().getTime()}`, true);
+                        
+                        xhr.onload = function() {
+                            try {
+                                const response = JSON.parse(xhr.responseText);
+                                if (response.success && response.status !== order.status) {
+                                    updateOrderStatus(response, order.transferContent);
+                                }
+                            } catch (error) {
+                                console.error('Auto refresh error:', error);
+                            }
+                        };
+                        
+                        xhr.send();
+                    }
+                });
+            }, 10000); // Check every 10 seconds
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check and migrate old order data
+            migrateOldOrders();
+            
+            generatePackages();
+            initTabSwitching();
+            initPackageSelection();
+            calculateTotal();
+            displayOrders();
+            startAutoRefresh();
+        });
+
+        // Function to migrate old order data to new format
+        function migrateOldOrders() {
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            let needsUpdate = false;
 
             orders = orders.map(order => {
-                if (order.transferContent === orderId) {
-                    updated = true;
-                    return { ...order, status: response.status };
+                // Check if order has new fields
+                if (!order.packageType || !order.serviceName) {
+                    needsUpdate = true;
+                    return {
+                        ...order,
+                        packageType: order.packageType || 'view-1min',
+                        serviceName: order.serviceName || 'View 1 phút',
+                        videoId: order.videoId || extractVideoId(order.videoLink) || 'N/A',
+                        pricePerUnit: order.pricePerUnit || 33
+                    };
                 }
                 return order;
             });
 
-            if (updated) {
+            if (needsUpdate) {
                 localStorage.setItem('orders', JSON.stringify(orders));
-                displayOrders();
-                highlightOrder(orderId);
+                console.log('Orders migrated to new format');
             }
-
-            statusResult.style.display = 'block';
-            statusResult.textContent = `Trạng thái đơn hàng: ${response.status}`;
-            errorResult.style.display = 'none';
-        } else {
-            errorResult.style.display = 'block';
-            errorResult.textContent = response.message || 'Không tìm thấy đơn hàng!';
-            statusResult.style.display = 'none';
         }
-    }
 
-    function startAutoRefresh() {
-        if (autoRefreshInterval) clearInterval(autoRefreshInterval);
-        
-        autoRefreshInterval = setInterval(() => {
-            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-            orders.forEach(order => {
-                // Check tất cả đơn hàng, không chỉ "Chờ thanh toán"
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', `${SHEET_URL}?action=checkStatus&orderId=${order.transferContent}&t=${new Date().getTime()}`, true);
-                
-                xhr.onload = function() {
-                    try {
-                        const response = JSON.parse(xhr.responseText);
-                        if (response.success && response.status !== order.status) {
-                            updateOrderStatus(response, order.transferContent);
-                        }
-                    } catch (error) {
-                        console.error('Auto refresh error:', error);
-                    }
-                };
-                
-                xhr.send();
-            });
-        }, 5000); // Check every 5 seconds
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        generatePackages();
-        initPackageSelection();
-        calculateTotal();
-        displayOrders();
-        startAutoRefresh();
-    });
-</script>
-
+        // Function to clear order history (for testing)
+        function clearOrderHistory() {
+            if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử đơn hàng?')) {
+                localStorage.removeItem('orders');
+                displayOrders();
+                alert('Đã xóa lịch sử đơn hàng');
+            }
+        }
+    </script>
 </body>
 </html>
