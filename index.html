@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dịch Vụ View Sub Like YouTube</title>
-     <link rel="icon" href="./gj.jpg" />
+    <title>YTOD - Premium YouTube Services</title>
+    <link rel="icon" href="./gj.jpg" />
     <style>
     * {
         box-sizing: border-box;
@@ -13,14 +13,15 @@
     }
 
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533a7b 100%);
         color: #333;
         min-height: 100vh;
         position: relative;
         overflow-x: hidden;
     }
 
+    /* Advanced background effects */
     body::before {
         content: '';
         position: fixed;
@@ -28,20 +29,41 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a"><stop offset="0" stop-color="%23ffffff" stop-opacity=".1"/><stop offset="1" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="180" fill="url(%23a)"/><circle cx="800" cy="300" r="120" fill="url(%23a)"/><circle cx="300" cy="700" r="160" fill="url(%23a)"/></svg>') no-repeat;
-        background-size: cover;
-        opacity: 0.3;
-        z-index: -1;
-        animation: float 20s ease-in-out infinite;
+        background: 
+            radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.15) 0%, transparent 50%);
+        z-index: -2;
+        animation: backgroundShift 20s ease-in-out infinite alternate;
     }
 
-    @keyframes float {
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a"><stop offset="0" stop-color="%23ffffff" stop-opacity=".05"/><stop offset="1" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="180" fill="url(%23a)"/><circle cx="800" cy="300" r="120" fill="url(%23a)"/><circle cx="300" cy="700" r="160" fill="url(%23a)"/><circle cx="600" cy="600" r="100" fill="url(%23a)"/></svg>') no-repeat;
+        background-size: cover;
+        opacity: 0.4;
+        z-index: -1;
+        animation: particleFloat 25s ease-in-out infinite;
+    }
+
+    @keyframes backgroundShift {
+        0% { transform: rotate(0deg) scale(1); }
+        100% { transform: rotate(5deg) scale(1.05); }
+    }
+
+    @keyframes particleFloat {
         0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(5deg); }
+        33% { transform: translateY(-30px) rotate(2deg); }
+        66% { transform: translateY(-15px) rotate(-1deg); }
     }
 
     .container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 40px auto;
         padding: 20px;
         position: relative;
@@ -49,14 +71,18 @@
     }
 
     .card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 24px;
-        padding: 40px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        margin-bottom: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border-radius: 32px;
+        padding: 50px;
+        box-shadow: 
+            0 25px 50px -12px rgba(0, 0, 0, 0.25),
+            0 0 0 1px rgba(255, 255, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        margin-bottom: 50px;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         position: relative;
         overflow: hidden;
     }
@@ -68,52 +94,66 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        border-radius: 24px 24px 0 0;
+        background: linear-gradient(90deg, #8B5CF6, #06B6D4, #10B981, #F59E0B);
+        background-size: 400% 400%;
+        animation: gradientShift 8s ease infinite;
+    }
+
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        25% { background-position: 100% 50%; }
+        50% { background-position: 100% 100%; }
+        75% { background-position: 0% 100%; }
     }
 
     .card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 
+            0 35px 70px -15px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     h2 {
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4, #10B981);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 40px;
+        background-clip: text;
+        margin-bottom: 50px;
         text-align: center;
-        font-size: 32px;
-        font-weight: 800;
-        letter-spacing: -0.5px;
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: -1px;
         position: relative;
+        text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
     }
 
     h2::after {
         content: '';
         position: absolute;
-        bottom: -10px;
+        bottom: -15px;
         left: 50%;
         transform: translateX(-50%);
-        width: 60px;
-        height: 3px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #8B5CF6, #06B6D4);
         border-radius: 2px;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
     }
 
     .input-group {
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         position: relative;
     }
 
     label {
         display: block;
-        margin-bottom: 12px;
+        margin-bottom: 15px;
         font-weight: 700;
-        font-size: 16px;
-        color: #4a5568;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.9);
         position: relative;
-        padding-left: 20px;
+        padding-left: 25px;
     }
 
     label::before {
@@ -123,40 +163,47 @@
         top: 50%;
         transform: translateY(-50%);
         width: 4px;
-        height: 16px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        height: 20px;
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4);
         border-radius: 2px;
+        box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
     }
 
     input, select {
         width: 100%;
-        padding: 16px 20px;
-        border: 2px solid #e2e8f0;
-        border-radius: 16px;
+        padding: 20px 25px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
         font-size: 16px;
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(10px);
+        color: rgba(255, 255, 255, 0.9);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-family: inherit;
     }
 
-    input:focus, select:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.1);
-        outline: none;
-        background: rgba(255, 255, 255, 0.95);
-        transform: translateY(-2px);
+    input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
     }
 
-    /* Video Preview Styles */
+    input:focus, select:focus {
+        border-color: #8B5CF6;
+        box-shadow: 0 0 0 8px rgba(139, 92, 246, 0.1);
+        outline: none;
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-3px);
+    }
+
+    /* Enhanced Video Preview */
     .video-preview {
         display: none;
-        margin-top: 20px;
-        padding: 20px;
-        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-        border-radius: 16px;
-        border: 2px solid #e2e8f0;
-        animation: slideIn 0.5s ease-out;
+        margin-top: 25px;
+        padding: 30px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        animation: slideIn 0.6s ease-out;
     }
 
     .video-preview.show {
@@ -165,25 +212,42 @@
 
     .video-info {
         display: flex;
-        gap: 20px;
+        gap: 25px;
         align-items: flex-start;
     }
 
     .video-thumbnail {
         flex-shrink: 0;
-        border-radius: 12px;
+        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         transition: transform 0.3s ease;
+        position: relative;
     }
 
     .video-thumbnail:hover {
-        transform: scale(1.05);
+        transform: scale(1.05) rotate(2deg);
+    }
+
+    .video-thumbnail::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .video-thumbnail:hover::before {
+        opacity: 1;
     }
 
     .video-thumbnail img {
-        width: 200px;
-        height: 112px;
+        width: 220px;
+        height: 124px;
         object-fit: cover;
         display: block;
     }
@@ -194,10 +258,10 @@
     }
 
     .video-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: #2d3748;
-        margin-bottom: 8px;
+        font-size: 20px;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.95);
+        margin-bottom: 10px;
         line-height: 1.4;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -206,76 +270,71 @@
     }
 
     .video-channel {
-        font-size: 14px;
-        color: #667eea;
+        font-size: 16px;
+        color: #8B5CF6;
         font-weight: 600;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
 
     .video-stats {
         display: flex;
-        gap: 20px;
-        font-size: 13px;
-        color: #718096;
+        gap: 25px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
         font-weight: 500;
     }
 
     .error-message {
-        color: #e53e3e;
+        color: #F87171;
         font-size: 14px;
-        margin-top: 10px;
-        padding: 12px 16px;
-        background: rgba(229, 62, 62, 0.1);
-        border-radius: 8px;
-        border-left: 4px solid #e53e3e;
+        margin-top: 15px;
+        padding: 15px 20px;
+        background: rgba(248, 113, 113, 0.1);
+        border-radius: 12px;
+        border-left: 4px solid #F87171;
         display: none;
+        backdrop-filter: blur(10px);
     }
 
-    /* Package Selection Styles */
+    /* Enhanced Package Selection */
     .package-selector {
-        background: linear-gradient(135deg, #f7fafc, #edf2f7);
-        border-radius: 20px;
-        padding: 30px;
-        margin: 20px 0;
-        border: 2px solid #e2e8f0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+        backdrop-filter: blur(20px);
+        border-radius: 28px;
+        padding: 40px;
+        margin: 30px 0;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .package-tabs {
         display: flex;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 16px;
-        padding: 6px;
-        margin-bottom: 30px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 8px;
+        margin-bottom: 35px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         flex-wrap: wrap;
-        gap: 4px;
+        gap: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .package-tab {
         flex: 1;
-        min-width: 120px;
-        padding: 12px 16px;
+        min-width: 140px;
+        padding: 15px 20px;
         text-align: center;
-        border-radius: 12px;
+        border-radius: 16px;
         cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 600;
-        font-size: 14px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 700;
+        font-size: 15px;
         border: 2px solid transparent;
         position: relative;
         overflow: hidden;
-    }
-
-    .package-tab:hover {
-        background: rgba(102, 126, 234, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .package-tab.active {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        transform: translateY(-2px);
+        color: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
     }
 
     .package-tab::before {
@@ -285,12 +344,26 @@
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.5s;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .package-tab:hover {
+        background: rgba(139, 92, 246, 0.15);
+        transform: translateY(-3px) scale(1.02);
+        color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
     }
 
     .package-tab:hover::before {
         left: 100%;
+    }
+
+    .package-tab.active {
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+        color: white;
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        transform: translateY(-2px) scale(1.02);
     }
 
     .package-content {
@@ -299,25 +372,25 @@
 
     .package-content.active {
         display: block;
-        animation: fadeInUp 0.4s ease-out;
+        animation: fadeInUp 0.5s ease-out;
     }
 
     .package-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
     }
 
     .package-option {
-        background: rgba(255, 255, 255, 0.9);
-        border: 3px solid #e2e8f0;
-        border-radius: 16px;
-        padding: 20px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 25px;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
     }
 
     .package-option::before {
@@ -327,16 +400,16 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05));
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: all 0.3s ease;
         z-index: 0;
     }
 
     .package-option:hover {
-        border-color: #667eea;
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+        border-color: #8B5CF6;
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.25);
     }
 
     .package-option:hover::before {
@@ -344,30 +417,30 @@
     }
 
     .package-option.selected {
-        border-color: #667eea;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.25);
+        border-color: #8B5CF6;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.1));
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
     }
 
     .package-option.selected::after {
         content: '✓';
         position: absolute;
-        top: 12px;
-        right: 12px;
-        width: 28px;
-        height: 28px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        top: 15px;
+        right: 15px;
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4);
         color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: bold;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
         z-index: 2;
-        animation: checkmark 0.3s ease-out;
+        animation: checkmark 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
     .package-option > * {
@@ -376,53 +449,59 @@
     }
 
     .package-views {
-        font-size: 20px;
-        font-weight: 800;
-        color: #2d3748;
-        margin-bottom: 8px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-size: 22px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.95);
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .package-price {
-        font-size: 18px;
-        font-weight: 700;
-        color: #e53e3e;
-        margin-bottom: 8px;
+        font-size: 20px;
+        font-weight: 800;
+        color: #F59E0B;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
     }
 
     .package-duration {
-        font-size: 12px;
-        color: #718096;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
         font-weight: 500;
         line-height: 1.4;
     }
 
     .package-description {
         text-align: center;
-        margin-bottom: 20px;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: 12px;
-        font-size: 14px;
-        color: #4a5568;
+        margin-bottom: 25px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.8);
         border-left: 4px solid;
+        font-weight: 500;
     }
 
-    .view-1min .package-description { border-left-color: #9f7aea; }
-    .view-10min .package-description { border-left-color: #4299e1; }
-    .sub-view .package-description { border-left-color: #f6ad55; }
-    .like-view .package-description { border-left-color: #f56565; }
+    .view-1min .package-description { border-left-color: #8B5CF6; }
+    .view-10min .package-description { border-left-color: #06B6D4; }
+    .sub-view .package-description { border-left-color: #10B981; }
+    .like-view .package-description { border-left-color: #F59E0B; }
+    .sub-like .package-description { border-left-color: #EC4899; }
 
     .payment-info {
-        background: linear-gradient(135deg, #f0f4ff, #e6f3ff);
-        padding: 24px;
-        border-radius: 16px;
-        border: 2px solid #e2e8f0;
-        margin: 30px 0;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05));
+        backdrop-filter: blur(20px);
+        padding: 30px;
+        border-radius: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        margin: 40px 0;
         position: relative;
         overflow: hidden;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .payment-info::before {
@@ -431,37 +510,42 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
+        height: 3px;
+        background: linear-gradient(90deg, #8B5CF6, #06B6D4);
     }
 
     .payment-info p {
-        margin: 12px 0;
-        font-size: 16px;
+        margin: 15px 0;
+        font-size: 17px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
     }
 
     .payment-info strong {
-        color: #667eea;
-        font-weight: 700;
+        color: #8B5CF6;
+        font-weight: 800;
+        text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
     }
 
     button {
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4);
         color: white;
-        padding: 18px 32px;
+        padding: 22px 40px;
         border: none;
-        border-radius: 16px;
-        font-size: 16px;
-        font-weight: 700;
+        border-radius: 20px;
+        font-size: 18px;
+        font-weight: 800;
         cursor: pointer;
         width: 100%;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         letter-spacing: 0.5px;
         position: relative;
         overflow: hidden;
+        text-transform: uppercase;
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
     }
 
     button::before {
@@ -472,7 +556,7 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.5s;
+        transition: left 0.6s;
     }
 
     button:hover::before {
@@ -480,8 +564,8 @@
     }
 
     button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
     }
 
     button:active {
@@ -491,39 +575,42 @@
     #qrCode {
         display: none;
         text-align: center;
-        margin-top: 30px;
-        padding: 30px;
-        background: linear-gradient(135deg, #ffffff, #f8fafc);
-        border-radius: 20px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        border: 2px solid #e2e8f0;
+        margin-top: 40px;
+        padding: 40px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+        backdrop-filter: blur(25px);
+        border-radius: 24px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        border: 2px solid rgba(255, 255, 255, 0.1);
     }
 
     #qrCode h3 {
-        color: #667eea;
-        margin-bottom: 24px;
-        font-size: 22px;
-        font-weight: 700;
+        color: #8B5CF6;
+        margin-bottom: 30px;
+        font-size: 26px;
+        font-weight: 800;
+        text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
     }
 
     #qrCode img {
-        max-width: 280px;
-        margin: 20px auto;
-        border-radius: 16px;
-        box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        max-width: 300px;
+        margin: 25px auto;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
 
     .loading {
         display: none;
-        margin: 20px auto;
-        width: 32px;
-        height: 32px;
-        border: 4px solid #e2e8f0;
-        border-top: 4px solid #667eea;
+        margin: 25px auto;
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-top: 4px solid #8B5CF6;
         border-radius: 50%;
         animation: spin 1s linear infinite;
     }
 
+    /* Enhanced Table Styles */
     .order-history {
         overflow-x: auto;
     }
@@ -531,114 +618,316 @@
     #orderTable {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 25px;
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(10px);
-        border-radius: 12px;
+        margin-top: 30px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 
     #orderTable th, #orderTable td {
-        padding: 16px;
+        padding: 18px;
         text-align: left;
-        border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     #orderTable th {
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4);
         color: white;
-        font-weight: 700;
-        font-size: 14px;
+        font-weight: 800;
+        font-size: 15px;
         letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
 
     #orderTable tr:hover {
-        background-color: rgba(102, 126, 234, 0.05);
+        background-color: rgba(139, 92, 246, 0.1);
     }
 
     #orderTable td {
         font-size: 14px;
         font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
     }
 
-    .status-pending { color: #f39c12; font-weight: 700; }
-    .status-paid { color: #27ae60; font-weight: 700; }
-    .status-processing { color: #2980b9; font-weight: 700; }
-    .status-completed { color: #2ecc71; font-weight: 700; }
-    .status-cancelled { color: #c0392b; font-weight: 700; }
+    .status-pending { color: #F59E0B; font-weight: 800; }
+    .status-paid { color: #10B981; font-weight: 800; }
+    .status-processing { color: #06B6D4; font-weight: 800; }
+    .status-completed { color: #34D399; font-weight: 800; }
+    .status-cancelled { color: #F87171; font-weight: 800; }
 
-    /* Service and Status Badges */
     .service-badge, .status-badge {
-        padding: 4px 8px;
-        border-radius: 6px;
+        padding: 6px 12px;
+        border-radius: 8px;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         white-space: nowrap;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .service-view-1min {
-        background: rgba(159, 122, 234, 0.2);
-        color: #9f7aea;
-        border: 1px solid rgba(159, 122, 234, 0.3);
+        background: rgba(139, 92, 246, 0.2);
+        color: #8B5CF6;
+        border: 1px solid rgba(139, 92, 246, 0.3);
     }
 
     .service-view-10min {
-        background: rgba(66, 153, 225, 0.2);
-        color: #4299e1;
-        border: 1px solid rgba(66, 153, 225, 0.3);
+        background: rgba(6, 182, 212, 0.2);
+        color: #06B6D4;
+        border: 1px solid rgba(6, 182, 212, 0.3);
     }
 
     .service-sub-view {
-        background: rgba(246, 173, 85, 0.2);
-        color: #f6ad55;
-        border: 1px solid rgba(246, 173, 85, 0.3);
+        background: rgba(16, 185, 129, 0.2);
+        color: #10B981;
+        border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     .service-like-view {
-        background: rgba(245, 101, 101, 0.2);
-        color: #f56565;
-        border: 1px solid rgba(245, 101, 101, 0.3);
+        background: rgba(245, 158, 11, 0.2);
+        color: #F59E0B;
+        border: 1px solid rgba(245, 158, 11, 0.3);
     }
 
-    .status-badge.status-pending {
-        background: rgba(243, 156, 18, 0.2);
-        color: #f39c12;
-        border: 1px solid rgba(243, 156, 18, 0.3);
-    }
-
-    .status-badge.status-paid {
-        background: rgba(39, 174, 96, 0.2);
-        color: #27ae60;
-        border: 1px solid rgba(39, 174, 96, 0.3);
-    }
-
-    .status-badge.status-processing {
-        background: rgba(41, 128, 185, 0.2);
-        color: #2980b9;
-        border: 1px solid rgba(41, 128, 185, 0.3);
-    }
-
-    .status-badge.status-completed {
-        background: rgba(46, 204, 113, 0.2);
-        color: #2ecc71;
-        border: 1px solid rgba(46, 204, 113, 0.3);
-    }
-
-    .status-badge.status-cancelled {
-        background: rgba(192, 57, 43, 0.2);
-        color: #c0392b;
-        border: 1px solid rgba(192, 57, 43, 0.3);
+    .service-sub-like {
+        background: rgba(236, 72, 153, 0.2);
+        color: #EC4899;
+        border: 1px solid rgba(236, 72, 153, 0.3);
     }
 
     #orderTable code {
-        background: rgba(102, 126, 234, 0.1);
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-family: 'Courier New', monospace;
+        background: rgba(139, 92, 246, 0.1);
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
         font-size: 12px;
-        color: #667eea;
-        border: 1px solid rgba(102, 126, 234, 0.2);
+        color: #8B5CF6;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    footer {
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4, #10B981, #F59E0B);
+        background-size: 400% 400%;
+        animation: gradientShift 8s ease infinite;
+        color: #fff;
+        padding: 40px;
+        text-align: center;
+        font-family: 'Inter', sans-serif;
+        font-size: 20px;
+        border-radius: 28px;
+        margin-top: 50px;
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    footer p {
+        margin: 0;
+        line-height: 1.8;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    footer span {
+        font-weight: 900;
+        color: #FFFFFF;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 2px;
+    }
+
+    .support-widget {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9999;
+        font-family: 'Inter', Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .support-label {
+        background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+        color: white;
+        font-size: 16px;
+        font-weight: 800;
+        padding: 12px 20px;
+        border-radius: 30px;
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space: nowrap;
+        backdrop-filter: blur(15px);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .support-label:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 35px rgba(139, 92, 246, 0.5);
+    }
+
+    .support-links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 15px;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .support-widget:hover .support-links {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .support-links a img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: white;
+        border: 3px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .support-links a img:hover {
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: 0 12px 35px rgba(139, 92, 246, 0.4);
+        border-color: #8B5CF6;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        .card {
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        h2 {
+            font-size: 32px;
+        }
+
+        .video-info {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+        }
+
+        .package-tabs {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .package-tab {
+            min-width: auto;
+            flex: none;
+        }
+
+        .package-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .package-option {
+            padding: 20px;
+        }
+
+        .payment-info {
+            padding: 25px;
+        }
+
+        #orderTable {
+            font-size: 12px;
+            min-width: 900px;
+        }
+
+        #orderTable th, #orderTable td {
+            padding: 10px 8px;
+            white-space: nowrap;
+        }
+
+        .service-badge, .status-badge {
+            font-size: 10px;
+            padding: 4px 8px;
+        }
+
+        footer {
+            font-size: 18px;
+            padding: 30px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .card {
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        .package-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .package-option {
+            padding: 15px;
+        }
+
+        .payment-info {
+            padding: 20px;
+        }
+
+        button {
+            padding: 18px 30px;
+            font-size: 16px;
+        }
+
+        #orderTable {
+            font-size: 11px;
+        }
+
+        .service-badge, .status-badge {
+            font-size: 9px;
+            padding: 3px 6px;
+        }
     }
 
     @keyframes spin {
@@ -679,232 +968,6 @@
         100% {
             transform: scale(1) rotate(0deg);
             opacity: 1;
-        }
-    }
-
-    @keyframes multiColorBlink {
-        0% { background-color: #FF6347; }
-        25% { background-color: #FFD700; }
-        50% { background-color: #32CD32; }
-        75% { background-color: #1E90FF; }
-        100% { background-color: #FF6347; }
-    }
-
-    footer {
-        background-color: #FF6347;
-        color: #fff;
-        padding: 30px;
-        text-align: center;
-        font-family: 'Arial', sans-serif;
-        font-size: 18px;
-        border-radius: 20px;
-        margin-top: 40px;
-        box-shadow: 0 8px 24px rgba(255, 99, 71, 0.3);
-        position: relative;
-        overflow: hidden;
-        animation: multiColorBlink 3s infinite alternate;
-    }
-
-    footer p {
-        margin: 0;
-        line-height: 1.8;
-        font-weight: 300;
-        position: relative;
-        z-index: 1;
-    }
-
-    footer span {
-        font-weight: bold;
-        color: #FF9900;
-        text-decoration: underline;
-    }
-
-    footer:hover {
-        background-color: #FF4500;
-    }
-
-    .support-widget {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        z-index: 9999;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .support-label {
-        background-color: #007aff;
-        color: white;
-        font-size: 15px;
-        font-weight: bold;
-        padding: 10px 16px;
-        border-radius: 25px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        white-space: nowrap;
-    }
-
-    .support-label:hover {
-        background-color: #005dc1;
-    }
-
-    .support-links {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 12px;
-        align-items: center;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(10px);
-        transition: all 0.3s ease;
-    }
-
-    .support-widget:hover .support-links {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .support-links a img {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        background: white;
-    }
-
-    .support-links a img:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-        .container {
-            padding: 15px;
-        }
-
-        .card {
-            padding: 24px;
-            border-radius: 16px;
-        }
-
-        h2 {
-            font-size: 24px;
-        }
-
-        .video-info {
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .video-thumbnail img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-        }
-
-        .package-tabs {
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .package-tab {
-            min-width: auto;
-            flex: none;
-        }
-
-        .package-grid {
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-        }
-
-        .package-option {
-            padding: 16px;
-        }
-
-        .payment-info {
-            padding: 20px;
-        }
-
-        /* Mobile table styles */
-        .order-history {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        #orderTable {
-            font-size: 11px;
-            min-width: 900px; /* Ensure table doesn't get too cramped */
-        }
-
-        #orderTable th, #orderTable td {
-            padding: 8px 6px;
-            white-space: nowrap;
-        }
-
-        .service-badge, .status-badge {
-            font-size: 10px;
-            padding: 3px 6px;
-        }
-
-        #orderTable code {
-            font-size: 10px;
-            padding: 1px 4px;
-        }
-
-        footer {
-            font-size: 16px;
-            padding: 24px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .card {
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-
-        h2 {
-            font-size: 20px;
-            margin-bottom: 24px;
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-        }
-
-        .package-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .package-option {
-            padding: 12px;
-        }
-
-        .payment-info {
-            padding: 16px;
-        }
-
-        button {
-            padding: 16px 24px;
-            font-size: 14px;
-        }
-
-        /* Very small screen table adjustments */
-        #orderTable {
-            font-size: 10px;
-        }
-
-        .service-badge, .status-badge {
-            font-size: 9px;
-            padding: 2px 4px;
         }
     }
     </style>
@@ -962,6 +1025,7 @@
                             <div class="package-tab" data-tab="view-10min">💰 View 10 phút</div>
                             <div class="package-tab" data-tab="sub-view">👥 Sub + View</div>
                             <div class="package-tab" data-tab="like-view">👍 Like + View</div>
+                            <div class="package-tab" data-tab="sub-like">💎 Sub + Like</div>
                         </div>
 
                         <div class="package-content active view-1min" data-content="view-1min">
@@ -991,6 +1055,13 @@
                             </div>
                             <div class="package-grid" id="like-view-grid"></div>
                         </div>
+
+                        <div class="package-content sub-like" data-content="sub-like">
+                            <div class="package-description">
+                                💎 <strong>Sub + Like</strong> - Tăng cả subscriber và like, combo mạnh mẽ để tăng độ uy tín và tương tác của kênh.
+                            </div>
+                            <div class="package-grid" id="sub-like-grid"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -999,8 +1070,8 @@
                     <p id="timePerViewRow">⏱️ Thời gian xem/view: <strong><span id="timePerView">1</span> phút</strong></p>
                     <p id="totalTimeRow">⏰ Tổng thời gian: <strong><span id="totalTime">0.83</span> giờ</strong></p>
                     <p>💰 Tổng tiền: <strong><span id="totalPrice">1.650</span> VNĐ</strong></p>
-                    <div id="subLikeWarning" style="display: none; margin-top: 15px; padding: 12px; background: rgba(255, 0, 0, 0.1); border-left: 4px solid #ff0000; border-radius: 8px;">
-                        <p style="color: #ff0000; font-size: 14px; font-weight: 600; margin: 0; line-height: 1.4;">
+                    <div id="subLikeWarning" style="display: none; margin-top: 15px; padding: 12px; background: rgba(255, 0, 0, 0.1); border-left: 4px solid #ff0000; border-radius: 8px; backdrop-filter: blur(10px);">
+                        <p style="color: #FF6B6B; font-size: 14px; font-weight: 600; margin: 0; line-height: 1.4;">
                             ⚠️Sub và Like 100% là người dùng thật nhưng cũng không tránh được việc tụt sub và like, cân nhắc kỹ trước khi mua.
                         </p>
                     </div>
@@ -1052,15 +1123,16 @@
     <script>
         const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzYe8NL2zmSk4pFCZvdaSK6sV0V0i2YhJ-Omn2_7FS0ud939nWbUJpOS7_voa7OFaQ/exec';
         
-        // PRICING CONFIGURATION - Easy to update rates here
+        // PRICING CONFIGURATION - Corrected pricing for sub-like package
         const PRICING = {
             'view-1min': 33,      // 33 VND per view for 1 minute watch time
-            'view-10min': 166,    // 166 VND per view for 10 minutes watch time
-            'sub-view': 444,       // 444 VND per view for sub and view package
-            'like-view': 44        // 44 VND per view for like and view package
+            'view-10min': 16,     // 16 VND per view for 10 minutes watch time (cheaper rate)
+            'sub-view': 444,      // 444 VND per view for sub and view package
+            'like-view': 44,      // 44 VND per view for like and view package
+            'sub-like': 488       // 488 VND per unit for sub and like package (no view)
         };
         
-        // PACKAGE CONFIGURATION - Easy to add/modify packages
+        // PACKAGE CONFIGURATION - Added sub-like package
         const PACKAGES = {
             'view-1min': {
                 name: 'View 1 phút',
@@ -1072,19 +1144,25 @@
                 name: 'View 10 phút', 
                 description: 'Giá rẻ - Chất lượng cao - Hiệu quả ổn định',
                 watchTimeMinutes: 10,
-                options: [50, 100, 500, 1000, 2500, 5000]
+                options: [50, 100, 500, 1000, 2500]
             },
             'sub-view': {
                 name: 'Sub + View',
                 description: 'Xem video và đăng ký kênh',
                 watchTimeMinutes: 3,
-                options: [50, 100, 500, 1000, 2500]
+                options: [50, 100, 500]
             },
             'like-view': {
                 name: 'Like + View',
                 description: 'Tăng tương tác video',
                 watchTimeMinutes: 2,
-                options: [50, 100, 500, 1000, 2500]
+                options: [50, 100, 500]
+            },
+            'sub-like': {
+                name: 'Sub + Like',
+                description: 'Tăng subscriber, like và view ',
+                watchTimeMinutes: 0, // No watch time for sub-like only
+                options: [50, 100, 200, 500]
             }
         };
         
@@ -1155,6 +1233,12 @@
                             <div class="package-views">${formatNumber(views)} Like + ${formatNumber(views)} View</div>
                             <div class="package-price">${totalPrice.toLocaleString()}₫</div>
                         `;
+                    } else if (packageType === 'sub-like') {
+                        optionDiv.innerHTML = `
+                            <div class="package-views">${formatNumber(views)} Sub + ${formatNumber(views)} Like</div>
+                            <div class="package-price">${totalPrice.toLocaleString()}₫</div>
+                            <div class="package-duration">💎 Premium combo </div>
+                        `;
                     } else {
                         const totalHours = (views * config.watchTimeMinutes / 60).toFixed(2);
                         optionDiv.innerHTML = `
@@ -1188,13 +1272,21 @@
             if (selectedPackage === 'sub-view') {
                 document.getElementById('viewLabel').innerHTML = '👥 Số sub + view:';
                 document.getElementById('totalViews').innerHTML = `${formatNumber(selectedViews)} sub + ${formatNumber(selectedViews)} view`;
-                // Hide time-related rows for sub+view
-                timePerViewRow.style.display = 'none';
-                totalTimeRow.style.display = 'none';
+                timePerViewRow.style.display = 'block';
+                totalTimeRow.style.display = 'block';
+                document.getElementById('timePerView').textContent = watchTimeMinutes;
+                document.getElementById('totalTime').textContent = totalHours;
             } else if (selectedPackage === 'like-view') {
                 document.getElementById('viewLabel').innerHTML = '👍 Số like + view:';
                 document.getElementById('totalViews').innerHTML = `${formatNumber(selectedViews)} like + ${formatNumber(selectedViews)} view`;
-                // Hide time-related rows for like+view
+                timePerViewRow.style.display = 'block';
+                totalTimeRow.style.display = 'block';
+                document.getElementById('timePerView').textContent = watchTimeMinutes;
+                document.getElementById('totalTime').textContent = totalHours;
+            } else if (selectedPackage === 'sub-like') {
+                document.getElementById('viewLabel').innerHTML = '💎 Số sub + like:';
+                document.getElementById('totalViews').innerHTML = `${formatNumber(selectedViews)} sub + ${formatNumber(selectedViews)} like`;
+                // Hide time-related rows for sub-like only (no view)
                 timePerViewRow.style.display = 'none';
                 totalTimeRow.style.display = 'none';
             } else {
@@ -1212,7 +1304,7 @@
 
             // Show/hide warning for sub and like packages
             const warningElement = document.getElementById('subLikeWarning');
-            if (selectedPackage === 'sub-view' || selectedPackage === 'like-view') {
+            if (selectedPackage === 'sub-view' || selectedPackage === 'like-view' || selectedPackage === 'sub-like') {
                 warningElement.style.display = 'block';
             } else {
                 warningElement.style.display = 'none';
@@ -1327,7 +1419,7 @@
 
             if (orders.length === 0) {
                 const row = document.createElement('tr');
-                row.innerHTML = `<td colspan="8" style="text-align: center; color: #718096; font-style: italic; padding: 30px;">Chưa có đơn hàng nào</td>`;
+                row.innerHTML = `<td colspan="8" style="text-align: center; color: rgba(255, 255, 255, 0.6); font-style: italic; padding: 30px;">Chưa có đơn hàng nào</td>`;
                 tableBody.appendChild(row);
                 return;
             }
@@ -1353,13 +1445,13 @@
                 row.innerHTML = `
                     <td style="font-size: 13px;">${order.timestamp}</td>
                     <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${order.videoLink}">
-                        <a href="${order.videoLink}" target="_blank" style="color: #667eea; text-decoration: none;">
+                        <a href="${order.videoLink}" target="_blank" style="color: #8B5CF6; text-decoration: none;">
                             ${shortVideoLink}
                         </a>
                     </td>
                     <td><code>${videoId}</code></td>
                     <td style="font-weight: 600;">${formatNumber(order.views)}</td>
-                    <td style="font-weight: 700; color: #e53e3e;">${parseInt(order.totalPrice).toLocaleString()} VNĐ</td>
+                    <td style="font-weight: 700; color: #F59E0B;">${parseInt(order.totalPrice).toLocaleString()} VNĐ</td>
                     <td><code style="font-size: 11px;">${order.transferContent}</code></td>
                     <td><span class="status-badge status-${getStatusClass(order.status || 'Chờ thanh toán')}">${order.status || 'Chờ thanh toán'}</span></td>
                     <td><span class="service-badge service-${order.packageType || 'view-1min'}">${serviceName}</span></td>
@@ -1381,6 +1473,8 @@
                     return `👥 ${formattedViews} Sub + ${formattedViews} View`;
                 case 'like-view':
                     return `👍 ${formattedViews} Like + ${formattedViews} View`;
+                case 'sub-like':
+                    return `💎 ${formattedViews} Sub + ${formattedViews} Like`;
                 case 'view-10min':
                     return `👁️ ${formattedViews} View (10p)`;
                 case 'view-1min':
@@ -1394,7 +1488,8 @@
                 'view-1min': 'View 1 phút',
                 'view-10min': 'View 10 phút',
                 'sub-view': 'Sub + View',
-                'like-view': 'Like + View'
+                'like-view': 'Like + View',
+                'sub-like': 'Sub + Like'
             };
             return names[packageType] || 'View 1 phút';
         }
@@ -1415,7 +1510,7 @@
             tableRows.forEach(row => {
                 const orderCell = row.querySelector('td:nth-child(6)');
                 if (orderCell && orderCell.textContent.trim() === orderId) {
-                    row.style.backgroundColor = '#e3f2fd';
+                    row.style.backgroundColor = 'rgba(139, 92, 246, 0.2)';
                     setTimeout(() => {
                         row.style.backgroundColor = '';
                         row.style.transition = 'background-color 1s ease';
